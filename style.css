@@ -691,6 +691,7 @@ footer {
     padding: 0.25em;
     font-size: 22pt;
     width: 1.5em;
+    cursor: pointer;
 }
 .extra-network-cards .card:hover .metadata-button, .extra-network-thumbs .card:hover .metadata-button{
     display: inline-block;
@@ -748,37 +749,52 @@ footer {
     color: white;
 }
 
+.extra-network-cards{
+    display: flex;
+    flex-wrap: wrap; 
+}
+
 .extra-network-thumbs .card:hover .actions .name {
     white-space: normal;
     word-break: break-all;
 }
 
 .extra-network-cards .card{
-    display: inline-block;
+    /* display: inline-block; */
+    display: flex;
+    flex: 0 0 auto; 
     margin: 0.5em;
-    width: 16em;
-    height: 24em;
+    width: 24em;
+    height: 16em;
     box-shadow: 0 0 5px rgba(128, 128, 128, 0.5);
     border-radius: 0.2em;
-    position: relative;
+    /* position: relative; */
 
-    background-size: auto 100%;
-    background-position: center;
+    /* background-size: auto 100%; */
+    /* background-position: center; */
     overflow: hidden;
-    cursor: pointer;
+    /* cursor: pointer; */
 
-    background-image: url('./file=html/card-no-preview.png')
+    /* background-image: url('./file=html/card-no-preview.png') */
 }
 
 .extra-network-cards .card:hover{
     box-shadow: 0 0 2px 0.3em rgba(0, 128, 255, 0.35);
 }
 
-.extra-network-cards .card .actions .additional{
-    display: none;
+.extra-network-cards .card .card-image{
+    flex: 1 1 0; 
+    position: relative;
+    box-sizing: border-box;
+    height: 100%;
+    width: 50%;
+    background-image: url('./file=html/card-no-preview.png');
+    background-size: auto 100%;
+    background-position: center;
+    cursor: pointer;
 }
 
-.extra-network-cards .card .actions{
+.extra-network-cards .card .card-image .actions{
     position: absolute;
     bottom: 0;
     left: 0;
@@ -787,40 +803,64 @@ footer {
     background: rgba(0,0,0,0.5);
     box-shadow: 0 0 0.25em 0.25em rgba(0,0,0,0.5);
     text-shadow: 0 0 0.2em black;
+    display: none;
 }
 
 .extra-network-cards .card .actions *{
     color: white;
 }
 
-.extra-network-cards .card .actions:hover{
+/* .extra-network-cards .card .actions:hover{
     box-shadow: 0 0 0.75em 0.75em rgba(0,0,0,0.5) !important;
+} */
+.extra-network-cards .card .card-info{
+    background-color: rgba(21, 21, 21, 0.25);
+    box-sizing: border-box;
+    height: 100%;
+    width: 50%;
+    flex: 1 1 0; 
+    display: flex;
+    flex-direction: column;
 }
 
-.extra-network-cards .card .actions .name{
-    font-size: 1.7em;
+.extra-network-cards .card .card-info .name{
+    font-size: 1.4em;
+    line-height: 1em;
+    padding: 8px;
     font-weight: bold;
     line-break: anywhere;
+    cursor: pointer;
 }
 
-.extra-network-cards .card .actions .description {
+.extra-network-cards .card .card-info .description {
     display: block;
-    max-height: 3em;
+    flex-grow: 1;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 8px;
+    background-color: rgba(0, 128, 255, 0.078);
+    /* max-height: 3em; */
     white-space: pre-wrap;
     line-height: 1.1;
+    overflow-x: none;
+    overflow-y: auto;
 }
 
-.extra-network-cards .card .actions .description:hover {
+.extra-network-cards .card .card-info .description::-webkit-scrollbar {
+    width: 0;
+}
+
+/* .extra-network-cards .card .actions .description:hover {
     max-height: none;
-}
+} */
 
-.extra-network-cards .card .actions:hover .additional{
+.extra-network-cards .card:hover .actions{
     display: block;
 }
 
 .extra-network-cards .card ul{
     margin: 0.25em 0 0.75em 0.25em;
     cursor: unset;
+    list-style-type: none;
 }
 
 .extra-network-cards .card ul a{
@@ -828,5 +868,5 @@ footer {
 }
 
 .extra-network-cards .card ul a:hover{
-    color: red;
+    color: orange;
 }

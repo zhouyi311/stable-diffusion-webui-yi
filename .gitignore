@@ -33,3 +33,10 @@ notification.mp3
 /test/stdout.txt
 /test/stderr.txt
 /cache.json
+
+desktop.ini
+zzz-user-args.txt
+zzz-webui-devrun.bat
+zzz-webui-user.bat
+
+/scripts/run_n_times.py

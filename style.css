@@ -946,7 +946,6 @@ footer {
     flex: 1 1 auto;
     height: auto;
 }
-
 .extra-network-advanced .card{
     display: flex;
     flex-direction: row;
@@ -990,22 +989,23 @@ footer {
     cursor: pointer;
     user-select: none;
 }
-
-.extra-network-advanced .card .actions-btns-list .card-btn.card-btn-fold{
+.extra-network-advanced .card ul.actions-btns-list>li>.card-btn:hover{
+    color: var(--secondary-500);
+}
+.extra-network-advanced .card ul.actions-btns-list>li>.card-btn:active{
+    color: var(--primary-500);
+}
+.extra-network-advanced .card ul.actions-btns-list>li>.card-btn.card-btn-bold{
+    font-weight: 700;
+}
+.extra-network-advanced .card ul.actions-btns-list>li>.card-btn.card-btn.card-btn-fold{
     padding: 0.1em 0.5em;
     transition: 0.2s;
 }
-.extra-network-advanced .card .actions-btns-list .card-btn.card-btn-fold:hover{
+.extra-network-advanced .card ul.actions-btns-list>li>.card-btn.card-btn.card-btn-fold:hover{
     padding: 0.5em 0.5em;
 }
 
-.extra-network-advanced .card .metadata-button:hover,
-.extra-network-advanced .card .actions-btns-list .card-btn:hover{
-    color: var(--secondary-400);
-}
-.extra-network-advanced .card .actions-btns-list .card-btn-bold{
-    font-weight: 700;
-}
 
 /* extra network advanced view img section */
 .extra-network-advanced .card .card-img-preview{
@@ -1021,51 +1021,66 @@ footer {
     box-shadow: inset 0 0 1em var(--grayscale-3);
 }
 
-.extra-network-advanced .card .metadata-button{
-    display: none;
-    color: white;
-    font-size: 2em;
-    width: 1.5em;
-    border-radius: 0 0 0 0.4em;
-    text-align: center;
-    vertical-align: baseline;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-.extra-network-advanced .card .card-img-preview .metadata-button{
+.extra-network-advanced .card .card-img-preview .card-image-icons{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
     position: relative;
     margin-left: auto;
     margin-bottom: auto;
+    transition: 0.2s;
+    opacity: 0;
 }
+.extra-network-advanced .card:hover .card-img-preview .card-image-icons{
+    opacity: 1;
+}
+
+.extra-network-advanced .card .card-img-preview .card-image-icons>div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    width: 22pt;
+    height: 22pt;
+    overflow: hidden;
+}
+.extra-network-advanced .card .card-img-preview .card-image-icons div:hover{
+    color: var(--secondary-500);
+}
+
+.extra-network-advanced .card .card-img-preview .metadata-button{
+    font-size: 20pt;
+}
+.extra-network-advanced .card .card-img-preview .model-source-link{
+    font-size: 16pt;
+}
+.extra-network-advanced .card .card-img-preview .model-source-link::before{
+    content: "\1F30E\FE0E";
+}
+
 .extra-network-advanced .card .card-img-preview .actions{
     margin-top: auto;
     padding: 0.5em;
-    opacity: 0;
     transition: opacity 0.2s ease;;
+    opacity: 0;
 }
 .extra-network-advanced .card .card-img-preview:hover .actions{
     opacity: 1;
 }
 
 .extra-network-advanced .card .card-img-preview .actions-btns-list li{
-    background-color: rgba(0, 0, 0, 0.7);
     flex-grow: 1;
     flex-basis: auto;
     max-width: 10em;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 .extra-network-advanced .card .card-img-preview .actions-btns-list li:hover{
     background-color: rgba(0, 0, 0, 0.8);
 }
-.extra-network-advanced .card .card-img-preview .actions-btns-list li .card-btn{
+.extra-network-advanced .card .card-img-preview .card-btn{
     color: white;
 }
-.extra-network-advanced .card .card-img-preview .actions-btns-list li .card-btn:hover{
-    color: var(--secondary-500);
-}
-.extra-network-advanced .card .card-img-preview .actions-btns-list li .card-btn:active{
-    color: var(--primary-500);
-}
-
 
 
 /* extra network advanced view info section */
@@ -1091,10 +1106,10 @@ footer {
     cursor: pointer;
 }
 .extra-network-advanced .card:hover .card-info .name{
-    color: var(--secondary-600);
+    color: var(--primary-500);
 }
 .extra-network-advanced .card:hover .card-info .name:hover{
-    color: var(--primary-600);
+    color: var(--secondary-500);
 }
 
 .extra-network-advanced .card .card-info .description{
@@ -1144,23 +1159,15 @@ footer {
     outline: 3px solid var(--secondary-500);
 }
 
-
-
+.extra-network-advanced .card .card-info .card-btn{
+    color: var(--grayscale-0);
+}
 
 .extra-network-advanced .card .card-info .description-actions .actions-btns-list li{
-    background-color: var(--grayscale-6);
+    background-color: var(--grayscale-5);
 }
 .extra-network-advanced .card .card-info .description-actions .actions-btns-list li:hover{
     background-color: var(--grayscale-9);
-}
-.extra-network-advanced .card .card-info .description-actions .actions-btns-list li .card-btn{
-    color: var(--grayscale-0);
-}
-.extra-network-advanced .card .card-info .description-actions .actions-btns-list li .card-btn:hover{
-    color: var(--secondary-500);
-}
-.extra-network-advanced .card .card-info .description-actions .actions-btns-list li .card-btn:active{
-    color: var(--primary-500);
 }
 
 /* action list */

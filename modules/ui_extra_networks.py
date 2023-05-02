@@ -65,6 +65,7 @@ class ExtraNetworksPage:
         self.card_page_advanced = shared.html("extra-networks-card-advanced.html")
         self.allow_negative_prompt = False
         self.metadata = {}
+        self.model_info = {}
 
     def refresh(self):
         pass
@@ -163,6 +164,14 @@ class ExtraNetworksPage:
         if metadata:
             metadata_button = f"<div class='metadata-button' title='Show metadata' onclick='extraNetworksRequestMetadata(event, {json.dumps(self.name)}, {json.dumps(item['name'])})'></div>"
 
+        model_link = ""
+        model_info = item.get("model_info", None)
+        if model_info:
+            model_info_id = model_info.get("model_id", None)
+            model_info_source = model_info.get("model_source", None)
+            if model_info_id and model_info_source:
+                model_link = f'<div class="source-link-button"><a href="https://{model_info_source}.com/models/{model_info_id}" class="model-source-link" target="_blank" onclick="event.stopPropagation();"></a></div>'
+
         args = {
             "style": f"'{height}{width}{background_image}'",
             "style_advanced_size": f"'{height_advanced_view}{width_advanced_view}'",
@@ -181,6 +190,7 @@ class ExtraNetworksPage:
             
             "search_term": item.get("search_term", ""),
             "metadata_button": metadata_button,
+            "model_link": model_link,
 
         }
 
@@ -218,6 +228,33 @@ class ExtraNetworksPage:
                 pass
         return None
 
+    def find_model_info(self, path):
+        """
+        Find model info if .info file exists
+        """
+        for file in glob.glob(f"{path}*.info"):
+            file_without_info_ext = file[:-5]
+            model_source = file_without_info_ext[len(path):]
+            model_source = model_source.lstrip(".")
+            model_info_dict = None
+            # model_source = os.path.basename(file).split(".")[0]
+            try:
+                with open(file, "r", encoding="utf-8", errors="replace") as f:
+                    data = json.load(f)
+                    
+                    if data is not None:
+                        model_id = data.get('modelId', None)
+                        model_name = data.get('model', {}).get('name', None)
+
+                        if model_id is not None:
+                            model_info_dict = {
+                                'model_id': model_id,
+                                'model_name': model_name,
+                                'model_source': model_source
+                            }
+            except OSError:
+                pass
+        return model_info_dict
 
 def intialize():
     extra_pages.clear()

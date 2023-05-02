@@ -24,6 +24,7 @@ class ExtraNetworksPageCheckpoints(ui_extra_networks.ExtraNetworksPage):
                 "search_term": self.search_terms_from_path(checkpoint.filename) + " " + (checkpoint.sha256 or ""),
                 "onclick": '"' + html.escape(f"""return selectCheckpoint({json.dumps(name)})""") + '"',
                 "local_preview": f"{path}.{shared.opts.samples_format}",
+                "model_info": self.find_model_info(path),
             }
 
     def allowed_directories_for_previews(self):

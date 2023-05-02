@@ -23,6 +23,7 @@ class ExtraNetworksPageTextualInversion(ui_extra_networks.ExtraNetworksPage):
                 "search_term": self.search_terms_from_path(embedding.filename),
                 "prompt": json.dumps(embedding.name),
                 "local_preview": f"{path}.preview.{shared.opts.samples_format}",
+                "model_info": self.find_model_info(path),
             }
 
     def allowed_directories_for_previews(self):

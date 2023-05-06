@@ -170,7 +170,7 @@ class ExtraNetworksPage:
             model_info_id = model_info.get("model_id", None)
             model_info_source = model_info.get("model_source", None)
             if model_info_id and model_info_source:
-                model_link = f'<div class="source-link-button"><a href="https://{model_info_source}.com/models/{model_info_id}" class="model-source-link" target="_blank" onclick="event.stopPropagation();"></a></div>'
+                model_link = f'<div class="source-link-button"><a href="https://{model_info_source}.com/models/{model_info_id}?modelVersionId={model_info.get("model_ver", None)}" class="model-source-link" target="_blank" onclick="event.stopPropagation();"></a></div>'
 
         args = {
             "style": f"'{height}{width}{background_image}'",
@@ -232,29 +232,38 @@ class ExtraNetworksPage:
         """
         Find model info if .info file exists
         """
-        for file in glob.glob(f"{path}*.info"):
+        files = glob.glob(f"{path}*.info")
+
+        for file in files:
             file_without_info_ext = file[:-5]
             model_source = file_without_info_ext[len(path):]
-            model_source = model_source.lstrip(".")
-            model_info_dict = None
-            # model_source = os.path.basename(file).split(".")[0]
-            try:
-                with open(file, "r", encoding="utf-8", errors="replace") as f:
-                    data = json.load(f)
-                    
-                    if data is not None:
-                        model_id = data.get('modelId', None)
-                        model_name = data.get('model', {}).get('name', None)
 
-                        if model_id is not None:
-                            model_info_dict = {
-                                'model_id': model_id,
-                                'model_name': model_name,
-                                'model_source': model_source
-                            }
-            except OSError:
-                pass
-        return model_info_dict
+            if not model_source or (model_source.count('.') == 1 and model_source.startswith('.')):
+                model_source = model_source.lstrip(".")
+                model_info_dict = None
+                try:
+                    with open(file, "r", encoding="utf-8", errors="replace") as f:
+                        data = json.load(f)
+
+                        if data is not None:
+                            model_id = data.get('modelId', None)
+                            model_ver = data.get('id', None)
+                            model_display_name = data.get('model', {}).get('name', None)
+
+                            if model_id is not None:
+                                model_info_dict = {
+                                    'model_source': model_source,
+                                    'model_id': model_id,
+                                    'model_ver': model_ver,
+                                    'model_name': model_display_name,
+                                }
+                                return model_info_dict
+                except OSError:
+                    pass
+            else:
+                continue
+
+        return None
 
 def intialize():
     extra_pages.clear()
